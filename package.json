@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "servedev": "code .|wt split-pane -d ./|vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "echarts": "^5.2.2",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
   },
@@ -28,5 +31,17 @@
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "description": "## Project setup ``` yarn install ```",
+  "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/litfa/mcserver-status-vue.git"
+  },
+  "author": "litfa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/litfa/mcserver-status-vue/issues"
+  },
+  "homepage": "https://github.com/litfa/mcserver-status-vue#readme"
 }

@@ -2,10 +2,11 @@
  * @Author: litfa
  * @Date: 2022-01-05 20:27:47
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-05 22:19:19
+ * @Last Modified time: 2022-01-06 00:35:24
  */
 <template>
   <div class="container">
+    {{motd}}
     <div ref="echarts" class="echarts"></div>
   </div>
 </template>
@@ -21,23 +22,17 @@ export default {
     }
   },
   data() {
-    return {}
-  },
-  async mounted() {
-    const data = []
-    const date = []
-    for (const i in this.playerdata) {
-      data.push(this.playerdata[i].online)
-      date.push(dayjs(this.playerdata[i].date).format('HH:MM:ss'))
+    return {
+      motd: ''
     }
-
-    this.initEcharts(data, date)
   },
-
   watch: {
-    playerdata(e) {
-      console.log('aaa', e)
+    playerdata() {
+      this.formatData()
     }
+  },
+  mounted() {
+    this.formatData()
   },
   methods: {
     initEcharts(data, date) {
@@ -50,10 +45,12 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
+
           data: date
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          minInterval: 1
         },
         series: [
           {
@@ -64,16 +61,25 @@ export default {
         ],
         tooltip: {
           trigger: 'axis'
-          // axisPointer: {
-          //   type: 'cross',
-          //   label: {
-          //     backgroundColor: '#6a7985'
-          //   }
-          // }
         }
       }
 
       option && myChart.setOption(option)
+    },
+    formatData() {
+      const data = []
+      const date = []
+
+      for (const i in this.playerdata) {
+        // 复制motd
+        if (this.playerdata[i].motd) this.motd = this.playerdata[i].motd
+
+        data.push(this.playerdata[i].online)
+        date.push(dayjs(this.playerdata[i].date).format('HH:mm:ss'))
+      }
+      console.log(data, date)
+
+      this.initEcharts(data, date)
     }
   }
 }
@@ -84,7 +90,6 @@ export default {
   width: 100%;
   height: 100%;
   .echarts {
-    // width: 10000px;
     width: 100%;
     height: 500px;
   }

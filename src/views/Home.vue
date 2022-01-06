@@ -2,21 +2,23 @@
  * @Author: litfa
  * @Date: 2022-01-05 20:27:52
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 00:38:59
+ * @Last Modified time: 2022-01-06 00:56:45
  */
 <template>
   <div class="container">
-    <div v-for="(item, index) in statusLog" :key="index">
-      <StatusLog :playerdata="item"></StatusLog>
+    <div class="echarts" v-for="(item, index) in statusLog" :key="index">
+      <PlayerNumber :playerdata="item"></PlayerNumber>
+      <ServerStatus :playerdata="item"></ServerStatus>
     </div>
   </div>
 </template>
 
 <script>
-import StatusLog from '@/components/ServerStatus/StatusLog.vue'
+import PlayerNumber from '@/components/ServerStatus/PlayerNumber.vue'
+import ServerStatus from '@/components/ServerStatus/ServerStatus.vue'
 import getStatusLog from '@/apis/getStatusLog.js'
 export default {
-  components: { StatusLog },
+  components: { PlayerNumber, ServerStatus },
   data() {
     return {
       statusLog: {}
@@ -49,4 +51,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// .container {
+//   .echarts {
+//     // height: 300px;
+//   }
+// }
 </style>

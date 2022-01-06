@@ -85,7 +85,7 @@ export default {
         if (this.playerdata[i].motd) this.motd = this.playerdata[i].motd
 
         data.push(this.playerdata[i].online)
-        date.push(dayjs(this.playerdata[i].date).format('HH:mm:ss'))
+        date.push(dayjs(this.playerdata[i].date).format('HH:mm'))
       }
 
       this.echartsData.data = data

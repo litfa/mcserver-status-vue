@@ -2,11 +2,10 @@
  * @Author: litfa
  * @Date: 2022-01-05 20:27:47
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 00:53:32
+ * @Last Modified time: 2022-01-06 21:30:48
  */
 <template>
   <div class="container">
-    <div class="title">历史在线人数</div>
     <div ref="echarts" class="echarts"></div>
   </div>
 </template>
@@ -19,16 +18,27 @@ export default {
   props: {
     playerdata: {
       type: Array
+    },
+    reSetEcharts: {
+      type: Number
     }
   },
   data() {
     return {
-      motd: ''
+      motd: '',
+      echartsData: {
+        data: {},
+        date: {}
+      },
+      myChart: ''
     }
   },
   watch: {
     playerdata() {
       this.formatData()
+    },
+    reSetEcharts() {
+      this.reSeteEharts()
     }
   },
   mounted() {
@@ -39,7 +49,7 @@ export default {
       // console.log(this.playerData)
       const chartDom = this.$refs.echarts
 
-      const myChart = echarts.init(chartDom)
+      this.myChart = echarts.init(chartDom)
 
       const option = {
         xAxis: {
@@ -64,7 +74,7 @@ export default {
         }
       }
 
-      option && myChart.setOption(option)
+      option && this.myChart.setOption(option)
     },
     formatData() {
       const data = []
@@ -78,7 +88,13 @@ export default {
         date.push(dayjs(this.playerdata[i].date).format('HH:mm:ss'))
       }
 
-      this.initEcharts(data, date)
+      this.echartsData.data = data
+      this.echartsData.date = date
+      this.initEcharts(this.echartsData.data, this.echartsData.date)
+    },
+    reSeteEharts() {
+      this.myChart.dispose()
+      this.initEcharts(this.echartsData.data, this.echartsData.date)
     }
   }
 }
@@ -89,12 +105,13 @@ export default {
   width: 100%;
   height: 100%;
   .title {
-    padding-left: 50px;
+    // padding-left: 50px;
+    // box-sizing: border-box;
     font-weight: bold;
   }
   .echarts {
     width: 100%;
-    height: 300px;
+    height: 200px;
     // height: 100%;
   }
 }

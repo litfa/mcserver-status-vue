@@ -11,6 +11,9 @@ export default {
   props: {
     playerdata: {
       type: Array
+    },
+    reSetEcharts: {
+      type: Number
     }
   },
   data() {
@@ -19,7 +22,12 @@ export default {
         online: '#00ff00',
         offline: 'red',
         error: 'yellow'
-      }
+      },
+      echartsData: {
+        data: {},
+        date: {}
+      },
+      myChart: ''
     }
   },
   mounted() {
@@ -28,12 +36,17 @@ export default {
   watch: {
     playerdata() {
       this.formatData()
+    },
+    reSetEcharts() {
+      this.reSeteEharts()
     }
   },
+
   methods: {
     initEcharts(data, date) {
       const chartDom = this.$refs.echarts
-      const myChart = echarts.init(chartDom)
+      this.myChart = echarts.init(chartDom)
+
       const option = {
         xAxis: {
           type: 'category',
@@ -58,7 +71,7 @@ export default {
         }
       }
 
-      option && myChart.setOption(option)
+      option && this.myChart.setOption(option, true)
     },
     formatData() {
       const data = []
@@ -89,8 +102,13 @@ export default {
         })
         date.push(dayjs(this.playerdata[i].date).format('HH:mm:ss'))
       }
-      console.log(data, date)
-      this.initEcharts(data, date)
+      this.echartsData.data = data
+      this.echartsData.date = date
+      this.initEcharts(this.echartsData.data, this.echartsData.date)
+    },
+    reSeteEharts() {
+      this.myChart.dispose()
+      this.initEcharts(this.echartsData.data, this.echartsData.date)
     }
   }
 }
@@ -101,7 +119,8 @@ export default {
   width: 100%;
   height: 100%;
   .title {
-    padding-left: 50px;
+    // padding-left: 50px;
+    // box-sizing: border-box;
     font-weight: bold;
   }
   .echarts {

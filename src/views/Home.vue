@@ -2,7 +2,7 @@
  * @Author: litfa
  * @Date: 2022-01-05 20:27:52
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 21:31:55
+ * @Last Modified time: 2022-01-06 23:39:45
  */
 <template>
   <div class="container">
@@ -84,7 +84,6 @@ export default {
   computed: {},
   methods: {
     formatDate(date) {
-      console.log(date)
       return dayjs(date).format('HH:mm:ss')
     },
     async _getStatus() {

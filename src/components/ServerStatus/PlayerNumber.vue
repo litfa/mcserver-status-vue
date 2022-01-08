@@ -2,7 +2,7 @@
  * @Author: litfa
  * @Date: 2022-01-05 20:27:47
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 21:30:48
+ * @Last Modified time: 2022-01-06 23:39:30
  */
 <template>
   <div class="container">
@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     initEcharts(data, date) {
-      // console.log(this.playerData)
       const chartDom = this.$refs.echarts
 
       this.myChart = echarts.init(chartDom)

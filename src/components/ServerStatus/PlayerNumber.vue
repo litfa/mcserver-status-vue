@@ -2,7 +2,7 @@
  * @Author: litfa
  * @Date: 2022-01-05 20:27:47
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 23:39:30
+ * @Last Modified time: 2022-01-08 10:46:30
  */
 <template>
   <div class="container">
@@ -11,8 +11,14 @@
 </template>
 
 <script>
-import * as echarts from 'echarts'
 import dayjs from 'dayjs'
+
+import * as echarts from 'echarts/core'
+import { GridComponent } from 'echarts/components'
+import { LineChart } from 'echarts/charts'
+import { UniversalTransition } from 'echarts/features'
+import { CanvasRenderer } from 'echarts/renderers'
+echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition])
 
 export default {
   props: {

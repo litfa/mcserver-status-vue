@@ -1,24 +1,6 @@
 # server-status-vue
 
-## Project setup
-```
-yarn install
-```
+[下载](https://github.com/litfa/mc-server-status/releases)
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[代码仓库-node](https://github.com/litfa/mcserver-status-node)  
+[代码仓库-vue](https://github.com/litfa/mcserver-status-vue)

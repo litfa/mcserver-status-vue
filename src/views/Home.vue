@@ -2,7 +2,7 @@
  * @Author: litfa
  * @Date: 2022-01-05 20:27:52
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 23:39:45
+ * @Last Modified time: 2022-01-Sa 02:09:31
  */
 <template>
   <div class="container">
@@ -73,11 +73,13 @@
 import PlayerNumber from '@/components/ServerStatus/PlayerNumber.vue'
 import ServerStatus from '@/components/ServerStatus/ServerStatus.vue'
 import getStatusLog from '@/apis/getStatusLog.js'
+import getStatus from '@/apis/getStatus.js'
 import dayjs from 'dayjs'
 export default {
   components: { PlayerNumber, ServerStatus },
   data() {
     return {
+      // 所有遍历后的状态 用id为索引的对象(有点像伪数组)
       statusLog: {},
       reSetEcharts: 0,
       timeOut: ''
@@ -111,12 +113,27 @@ export default {
       }
       // 更新数据
       this.statusLog = data
+      // 展示最新数据
+      if (res.viewNewData) this.getNewData()
     },
     reSet() {
       clearTimeout(this.timeOut)
       this.timeOut = setTimeout(() => {
         this.reSetEcharts++
       }, 1000)
+    },
+    async getNewData() {
+      const { data: res } = await getStatus()
+      // 数据对象
+      const data = this.statusLog
+      for (const i in res.data) {
+        // 创建空数组
+        if (!data[res.data[i].id]) data[res.data[i].id] = []
+        // 将数据复制给 key 为 id 的对象
+        data[res.data[i].id].push(res.data[i])
+      }
+      // 更新数据
+      this.statusLog = data
     }
   }
 }

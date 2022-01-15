@@ -8,10 +8,10 @@
 import dayjs from 'dayjs'
 
 import * as echarts from 'echarts/core'
-import { GridComponent } from 'echarts/components'
+import { GridComponent, ToolboxComponent, TooltipComponent } from 'echarts/components'
 import { BarChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
-echarts.use([GridComponent, BarChart, CanvasRenderer])
+echarts.use([GridComponent, BarChart, CanvasRenderer, ToolboxComponent, TooltipComponent])
 
 export default {
   props: {

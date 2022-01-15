@@ -6,7 +6,8 @@
  */
 <template>
   <div class="container">
-    <el-row :gutter="10" class="echarts" v-for="(item, index) in statusLog" :key="index">
+    <el-row :gutter="10" class="echarts"
+      v-for="(item, index) in statusLog" :key="index">
       <el-col class="col">
         <el-card class="players">
           <template #header>
@@ -28,11 +29,14 @@
 
             <div v-if="item[item.length-1].type == 'je'">
               <span>人数:</span>
-              <el-popover placement="right" width="200" trigger="hover">
+              <el-popover placement="right" width="200"
+                trigger="hover">
                 <template #reference>
-                  <span>{{ item[item.length-1].online }} / {{ item[item.length-1].max }}</span>
+                  <span>{{ item[item.length-1].online }} /
+                    {{ item[item.length-1].max }}</span>
                 </template>
-                <div v-for="j in item[item.length-1].sample" :key="j.id">
+                <div v-for="j in item[item.length-1].sample"
+                  :key="j.id">
                   {{ j.name }}
                 </div>
               </el-popover>
@@ -40,11 +44,13 @@
 
             <div v-else>
               <span>人数:</span>
-              <span>{{ item[item.length-1].online }} / {{ item[item.length-1].max }}</span>
+              <span>{{ item[item.length-1].online }} /
+                {{ item[item.length-1].max }}</span>
             </div>
             <div>
               <span>更新时间:</span>
-              <span>{{ formatDate(item[item.length-1].date) }} </span>
+              <span>{{ formatDate(item[item.length-1].date) }}
+              </span>
             </div>
           </div>
         </el-card>
@@ -52,9 +58,11 @@
       <el-col class="col">
         <el-card class="serverStatus">
           <div class="title">服务器状态</div>
-          <ServerStatus :playerdata="item" :reSetEcharts="reSetEcharts"></ServerStatus>
+          <ServerStatus :playerdata="item"
+            :reSetEcharts="reSetEcharts"></ServerStatus>
           <div class="title">历史在线人数</div>
-          <PlayerNumber :playerdata="item" :reSetEcharts="reSetEcharts"></PlayerNumber>
+          <PlayerNumber :playerdata="item"
+            :reSetEcharts="reSetEcharts"></PlayerNumber>
         </el-card>
       </el-col>
     </el-row>
@@ -156,6 +164,7 @@ export default {
             width: 4.5em;
             margin-right: 15px;
             text-align: right;
+            flex-shrink: 0;
           }
           span:nth-child(2) {
             max-width: 300px;

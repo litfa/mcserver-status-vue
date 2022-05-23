@@ -2,9 +2,7 @@
 
 </script>
 
-<template>
-  <router-view></router-view>
-</template>
+<template>home</template>
 
 <style lang="less" scoped>
 </style>

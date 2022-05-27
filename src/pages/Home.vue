@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-
+import AreaChart from '@/components/AreaChart.vue'
 </script>
 
-<template>home</template>
+<template>
+  <AreaChart></AreaChart>
+</template>
 
 <style lang="less" scoped>
 </style>

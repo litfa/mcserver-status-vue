@@ -111,6 +111,6 @@ onMounted(() => {
 <style lang="less" scoped>
 .chart-dom {
   width: 100%;
-  height: 300px;
+  height: 230px;
 }
 </style>

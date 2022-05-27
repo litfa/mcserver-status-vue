@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import AreaChart from '@/components/AreaChart/AreaChart.vue'
-import StackedLineChart from '@/components/AreaChart/StackedLineChart.vue'
+import AreaChart from '@/components/Chart/AreaChart.vue'
+import StackedLineChart from '@/components/Chart/StackedLineChart.vue'
 </script>
 
 <template>

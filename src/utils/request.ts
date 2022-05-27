@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = process.env.VUE_APP_ApiBaseutl
+axios.defaults.baseURL = import.meta.env.VITE_APP_ApiBaseutl
 
 /**
  // http request 拦截器

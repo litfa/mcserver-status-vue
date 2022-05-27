@@ -12,6 +12,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { get6h } from '@/apis/getStatus'
 import dayjs from 'dayjs'
+import { ElMessage } from 'element-plus'
 
 echarts.use([GridComponent,
   LineChart,
@@ -76,7 +77,10 @@ const getData = async () => {
         status: number | boolean
       }[]
     }
-  } = await get6h()
+  } = await get6h(1) // id 临时写 1
+  if (res?.code != 200) {
+    ElMessage.error('数据获取失败')
+  }
   res.data.forEach((element) => {
     data.online.push(element.online || 0)
     data.date.push(dayjs(element.date).format('HH:mm'))

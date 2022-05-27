@@ -1,21 +1,14 @@
 import request from '../utils/request'
 
-export const get6h = () => request({
-  url: '/getStatus/6h',
-  method: 'POST'
+const get = (id:number, url:string) => request({
+  url: `/getStatus/${url}`,
+  method: 'POST',
+  data: {
+    id
+  }
 })
 
-export const get24h = () => request({
-  url: '/getStatus/24h',
-  method: 'POST'
-})
-
-export const get7d = () => request({
-  url: '/getStatus/7d',
-  method: 'POST'
-})
-
-export const get30d = () => request({
-  url: '/getStatus/30d',
-  method: 'POST'
-})
+export const get6h = (id: number) => get(id, '6h')
+export const get24h = (id: number) => get(id, '24h')
+export const get7d = (id: number) => get(id, '7d')
+export const get30d = (id: number) => get(id, '30h')

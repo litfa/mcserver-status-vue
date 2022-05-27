@@ -6,6 +6,12 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     component: () =>
       import(/* webpackChunkName: "home" */ '../pages/Home.vue')
+  },
+  {
+    path: '/iframe',
+    name: 'Iframe',
+    component: () =>
+    import(/* webpackChunkName: "iframe" */ '../pages/Iframe.vue')
   }
 ]
 

@@ -19,7 +19,10 @@
         "./src/*"
       ]
     },
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": [
+      "element-plus/global"
+    ]
   },
   "include": [
     "src/**/*.ts",

@@ -11,7 +11,7 @@ import {
 import { LineChart, LineSeriesOption } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 echarts.use([
   TooltipComponent,
@@ -100,8 +100,16 @@ let option: EChartsOption = {
 onMounted(() => {
   myChart = echarts.init(chartDom.value)
   myChart.setOption(option)
+  window.addEventListener('resize', resize)
 })
 
+const resize = () => {
+  myChart.resize()
+}
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resize)
+})
 </script>
 
 <template>

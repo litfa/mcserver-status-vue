@@ -9,7 +9,7 @@ import {
 import { LineChart, LineSeriesOption } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { get6h } from '@/apis/getStatus'
 import dayjs from 'dayjs'
 
@@ -62,6 +62,7 @@ let option: EChartsOption = {
 
 onMounted(() => {
   myChart = echarts.init(chartDom.value)
+  window.addEventListener('resize', resize)
 })
 
 const getData = async () => {
@@ -83,6 +84,14 @@ const getData = async () => {
   myChart.setOption(option)
 }
 getData()
+
+const resize = () => {
+  myChart.resize()
+}
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resize)
+})
 </script>
 
 <template>

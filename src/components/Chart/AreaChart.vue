@@ -50,7 +50,8 @@ let option: EChartsOption = {
     data: data.date
   },
   yAxis: {
-    type: 'value'
+    type: 'value',
+    minInterval: 1
   },
   series: [
     {

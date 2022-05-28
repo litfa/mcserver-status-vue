@@ -12,6 +12,8 @@ import { LineChart, LineSeriesOption } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
 import { onMounted, onUnmounted, ref } from 'vue'
+import { get7d } from '@/apis/getStatus'
+import { ElMessage } from 'element-plus'
 
 echarts.use([
   TooltipComponent,
@@ -31,8 +33,18 @@ type EChartsOption = echarts.ComposeOption<
 
 let chartDom = ref<HTMLElement | null | any>(null)!
 let myChart: echarts.ECharts
+const data: {
+  day: string[],
+  maxOnline: number[],
+  online: number[],
+  status: number[]
+} = {
+  day: [],
+  maxOnline: [],
+  online: [],
+  status: []
+}
 let option: EChartsOption = {
-
   tooltip: {
     trigger: 'axis'
   },
@@ -49,7 +61,7 @@ let option: EChartsOption = {
   xAxis: {
     type: 'category',
     boundaryGap: false,
-    data: ['5-21', '5-22', '5-23', '5-24', '5-25', '5-26', '5-27']
+    data: data.day
   },
   yAxis: [{
     type: 'value',
@@ -71,7 +83,7 @@ let option: EChartsOption = {
       type: 'line',
       yAxisIndex: 1,
       stack: 'Total',
-      data: [0.8, 0.9, 0.9, 1, 1, 0.7, 1],
+      data: data.status,
       // min: 0,
       // max: 250
       tooltip: {
@@ -86,20 +98,46 @@ let option: EChartsOption = {
       name: '平均人数',
       type: 'line',
       stack: 'Total',
-      data: [220, 182, 191, 234, 290, 330, 310]
+      data: data.online
     },
     {
       name: '最高人数',
       type: 'line',
       stack: 'Total',
-      data: [150, 232, 201, 154, 190, 330, 410]
+      data: data.maxOnline
     }
   ]
 }
 
+interface Data {
+  code: number;
+  data: Datum[];
+}
+
+interface Datum {
+  day: string;
+  status: number;
+  max_online: number;
+  online: number;
+}
+
+const getData = async () => {
+  const { data: res }: {
+    data: Data
+  } = await get7d(1) // id 临时写 1
+  if (res.code != 200) ElMessage.error('数据获取失败')
+  res.data.forEach(e => {
+    data.day.push(e.day)
+    data.maxOnline.push(e.max_online)
+    data.online.push(e.online)
+    data.status.push(e.status)
+  })
+  myChart.setOption(option)
+}
+getData()
+
 onMounted(() => {
   myChart = echarts.init(chartDom.value)
-  myChart.setOption(option)
   window.addEventListener('resize', resize)
 })
 

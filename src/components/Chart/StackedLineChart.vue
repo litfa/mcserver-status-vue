@@ -15,6 +15,13 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { get7d } from '@/apis/getStatus'
 import { ElMessage } from 'element-plus'
 
+const props = defineProps({
+  id: {
+    type: Number,
+    required: true
+  }
+})
+
 echarts.use([
   TooltipComponent,
   GridComponent,
@@ -124,7 +131,7 @@ interface Datum {
 const getData = async () => {
   const { data: res }: {
     data: Data
-  } = await get7d(1) // id 临时写 1
+  } = await get7d(props.id)
   if (res.code != 200) ElMessage.error('数据获取失败')
   res.data.forEach(e => {
     data.day.push(e.day)

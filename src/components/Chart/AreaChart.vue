@@ -14,6 +14,13 @@ import { get6h } from '@/apis/getStatus'
 import dayjs from 'dayjs'
 import { ElMessage } from 'element-plus'
 
+const props = defineProps({
+  id: {
+    type: Number,
+    required: true
+  }
+})
+
 echarts.use([GridComponent,
   LineChart,
   CanvasRenderer,
@@ -77,7 +84,7 @@ const getData = async () => {
         status: number | boolean
       }[]
     }
-  } = await get6h(1) // id 临时写 1
+  } = await get6h(props.id)
   if (res?.code != 200) {
     ElMessage.error('数据获取失败')
   }

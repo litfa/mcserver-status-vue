@@ -37,10 +37,10 @@ const change = (e: string) => {
   </div>
 
   <transition name="el-fade-in-linear">
-    <AreaChart v-if="showHour"></AreaChart>
+    <AreaChart v-if="showHour" :id="Number($route.query.id)"></AreaChart>
   </transition>
   <transition name="el-fade-in-linear">
-    <StackedLineChart v-if="showStacked"></StackedLineChart>
+    <StackedLineChart v-if="showStacked" :id="Number($route.query.id)"></StackedLineChart>
   </transition>
 </template>
 

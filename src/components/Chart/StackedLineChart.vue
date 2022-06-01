@@ -12,12 +12,17 @@ import { LineChart, LineSeriesOption } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
 import { onMounted, onUnmounted, ref } from 'vue'
-import { get7d } from '@/apis/getStatus'
+import getDataApi from '@/apis/getStatus'
 import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   id: {
     type: Number,
+    required: true
+  },
+  length: {
+    type: String,
+    values: ['6h', '24h'] as ('6h' | '24h')[],
     required: true
   }
 })
@@ -131,8 +136,13 @@ interface Datum {
 const getData = async () => {
   const { data: res }: {
     data: Data
-  } = await get7d(props.id)
+  } = await getDataApi(props.id, props.length as '7d' | '30d')
   if (res.code != 200) ElMessage.error('数据获取失败')
+  // 清空数组 不改变指向
+  data.day.length = 0
+  data.maxOnline.length = 0
+  data.online.length = 0
+  data.status.length = 0
   res.data.forEach(e => {
     data.day.push(e.day)
     data.maxOnline.push(e.max_online)

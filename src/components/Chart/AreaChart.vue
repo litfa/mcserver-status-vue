@@ -9,14 +9,19 @@ import {
 import { LineChart, LineSeriesOption } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
-import { onMounted, onUnmounted, ref } from 'vue'
-import { get6h } from '@/apis/getStatus'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import getDataApi from '@/apis/getStatus'
 import dayjs from 'dayjs'
 import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   id: {
     type: Number,
+    required: true
+  },
+  length: {
+    type: String,
+    values: ['6h', '24h'] as ('6h' | '24h')[],
     required: true
   }
 })
@@ -85,17 +90,25 @@ const getData = async () => {
         status: number | boolean
       }[]
     }
-  } = await get6h(props.id)
+  } = await getDataApi(props.id, props.length as '6h' | '24h')
   if (res?.code != 200) {
     ElMessage.error('数据获取失败')
   }
+  // 清空数组 不改变指向
+  data.online.length = 0
+  data.date.length = 0
   res.data.forEach((element) => {
     data.online.push(element.online || 0)
     data.date.push(dayjs(element.date).format('HH:mm'))
   })
   myChart.setOption(option)
 }
-getData()
+
+watch(() => props.length, () => {
+  getData()
+}, {
+  immediate: true
+})
 
 const resize = () => {
   myChart.resize()

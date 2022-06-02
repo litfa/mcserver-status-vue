@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import AreaChart from '@/components/Chart/AreaChart.vue'
-import StackedLineChart from '@/components/Chart/StackedLineChart.vue'
+import Nav from '@/components/Nav/Nav.vue'
 </script>
 
 <template>
-  <AreaChart></AreaChart>
-  <StackedLineChart></StackedLineChart>
+  <Nav></Nav>
 </template>
 
 <style lang="less" scoped>

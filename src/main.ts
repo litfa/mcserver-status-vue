@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './config/router'
 import { createPinia } from 'pinia'
 import 'element-plus/dist/index.css'
+import '@/assets/style/main.less'
 
 createApp(App)
   .use(router)

@@ -15,7 +15,7 @@
 nav {
   width: 100%;
   height: 60px;
-  background-color: #fff;
+  background-color: var(--bg-color);
   display: flex;
   justify-content: space-between;
   align-items: center;

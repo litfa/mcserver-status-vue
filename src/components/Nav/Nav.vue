@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-
+import SwichTheme from '../SwichTheme/SwichTheme.vue'
 </script>
 
 <template>
@@ -7,6 +7,9 @@
     <div class="logo">
       <img src="https://static.litf.com.cn/public%2Flogo.png" alt="logo" />
       mcmotd
+    </div>
+    <div class="right">
+      <SwichTheme />
     </div>
   </nav>
 </template>
@@ -28,6 +31,9 @@ nav {
       height: 50px;
     }
     font-size: 20px;
+  }
+  .right {
+    margin-right: 10px;
   }
 }
 </style>

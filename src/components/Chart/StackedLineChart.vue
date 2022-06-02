@@ -11,9 +11,13 @@ import {
 import { LineChart, LineSeriesOption } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import getDataApi from '@/apis/getStatus'
 import { ElMessage } from 'element-plus'
+import { isDark } from '@/utils/theme'
+import { dispose } from 'echarts/core'
+import echartsDark from '@/assets/theme/echartsDark'
+import echartsVintage from '@/assets/theme/echartsVintage'
 
 const props = defineProps({
   id: {
@@ -35,6 +39,9 @@ echarts.use([
   CanvasRenderer,
   UniversalTransition
 ])
+
+echarts.registerTheme('dark', echartsDark)
+echarts.registerTheme('vintage', echartsVintage)
 
 type EChartsOption = echarts.ComposeOption<
   | TooltipComponentOption
@@ -154,8 +161,15 @@ const getData = async () => {
 getData()
 
 onMounted(() => {
-  myChart = echarts.init(chartDom.value)
+  myChart = echarts.init(chartDom.value, isDark.value ? 'dark' : 'vintage')
   window.addEventListener('resize', resize)
+
+  // 这里 immediate: true 会有问题
+  watch(() => isDark.value, (isDark) => {
+    myChart.dispose()
+    myChart = echarts.init(chartDom.value, isDark ? 'dark' : 'vintage')
+    myChart.setOption(option)
+  })
 })
 
 const resize = () => {

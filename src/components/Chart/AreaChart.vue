@@ -13,6 +13,9 @@ import { onMounted, onUnmounted, ref, watch } from 'vue'
 import getDataApi from '@/apis/getStatus'
 import dayjs from 'dayjs'
 import { ElMessage } from 'element-plus'
+import { isDark } from '@/utils/theme'
+import echartsDark from '@/assets/theme/echartsDark'
+import echartsVintage from '@/assets/theme/echartsVintage'
 
 const props = defineProps({
   id: {
@@ -32,6 +35,9 @@ echarts.use([GridComponent,
   UniversalTransition,
   TooltipComponent
 ])
+
+echarts.registerTheme('dark', echartsDark)
+echarts.registerTheme('vintage', echartsVintage)
 
 type EChartsOption = echarts.ComposeOption<
   | GridComponentOption
@@ -75,8 +81,20 @@ let option: EChartsOption = {
 }
 
 onMounted(() => {
-  myChart = echarts.init(chartDom.value)
+  myChart = echarts.init(chartDom.value, isDark.value ? 'dark' : 'vintage')
   window.addEventListener('resize', resize)
+
+  watch(() => props.length, () => {
+    getData()
+  }, {
+    immediate: true
+  })
+
+  watch(() => isDark.value, (isDark) => {
+    myChart.dispose()
+    myChart = echarts.init(chartDom.value, isDark ? 'dark' : 'vintage')
+    myChart.setOption(option)
+  })
 })
 
 const getData = async () => {
@@ -103,12 +121,6 @@ const getData = async () => {
   })
   myChart.setOption(option)
 }
-
-watch(() => props.length, () => {
-  getData()
-}, {
-  immediate: true
-})
 
 const resize = () => {
   myChart.resize()

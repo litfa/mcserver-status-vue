@@ -21,7 +21,10 @@ const isCollapse = ref(false)
   </el-menu>
 </template>
 
-<style>
+<style scoped>
+.menu {
+  background-color: var(--bg-color);
+}
 .menu:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;

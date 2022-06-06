@@ -65,15 +65,18 @@ const data: {
 }
 let option: EChartsOption = {
   tooltip: {
-    trigger: 'axis'
+    trigger: 'axis',
+    confine: true
   },
   legend: {
-    data: ['可用率', '平均人数', '最高人数']
+    data: ['可用率', '平均人数', '最高人数'],
+    top: 0
   },
   grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
+    left: '0',
+    right: '0',
+    bottom: '0',
+    top: '30%',
     containLabel: true
   },
 
@@ -110,7 +113,6 @@ let option: EChartsOption = {
           e = Number(e)
           return `${(e) * 100}%`
         }
-
       }
     },
     {
@@ -188,6 +190,8 @@ onUnmounted(() => {
 <style lang="less" scoped>
 .chart-dom {
   width: 100%;
-  height: 230px;
+  height: 100%;
+  max-height: 240px;
+  min-height: 100px;
 }
 </style>

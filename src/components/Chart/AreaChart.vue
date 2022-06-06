@@ -29,7 +29,8 @@ const props = defineProps({
   }
 })
 
-echarts.use([GridComponent,
+echarts.use([
+  GridComponent,
   LineChart,
   CanvasRenderer,
   UniversalTransition,
@@ -76,7 +77,15 @@ let option: EChartsOption = {
     }
   ],
   tooltip: {
-    trigger: 'axis'
+    trigger: 'axis',
+    confine: true
+  },
+  grid: {
+    top: '0',
+    bottom: '0',
+    left: '0',
+    right: '0',
+    containLabel: true
   }
 }
 
@@ -138,6 +147,8 @@ onUnmounted(() => {
 <style lang="less" scoped>
 .chart-dom {
   width: 100%;
-  height: 240px;
+  height: 100%;
+  max-height: 240px;
+  min-height: 70px;
 }
 </style>

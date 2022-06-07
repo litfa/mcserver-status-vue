@@ -21,6 +21,11 @@ watch(() => activeName.value, () => {
   if (!data[activeName.value]) {
     getServers()
   }
+  // 解决切换标签页时尺寸问题 手动触发窗口resize事件
+  setTimeout(() => {
+    let event = new Event('resize')
+    window.dispatchEvent(event)
+  }, 10)
 }, {
   immediate: true
 })

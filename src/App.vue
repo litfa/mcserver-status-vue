@@ -4,15 +4,19 @@ import Nav from '@/components/Nav/Nav.vue'
 </script>
 
 <template>
-  <Nav></Nav>
-  <Menu v-if="$route.path !== '/iframe'"></Menu>
-  <div class="content">
-    <router-view></router-view>
+  <div :class="$route.path !== '/iframe' ? 'app' : null">
+    <template v-if="$route.path !== '/iframe'">
+      <Nav></Nav>
+      <Menu></Menu>
+    </template>
+    <div class="content">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
-<style lang="less" >
-#app {
+<style lang="less" scoped>
+.app {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 60px 1fr;

@@ -3,6 +3,14 @@ import AreaChart from '@/components/Chart/AreaChart.vue'
 import StackedLineChart from '@/components/Chart/StackedLineChart.vue'
 import { ref } from 'vue'
 import { ElSelect, ElOption } from 'element-plus'
+import { toggleDark } from '@/utils/theme'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const { dark } = route.query
+// 切换暗色
+toggleDark(Boolean(dark == 'true'))
 
 const value = ref('6h')
 

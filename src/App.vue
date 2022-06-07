@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import Menu from './components/Menu/Menu.vue'
 import Nav from '@/components/Nav/Nav.vue'
+
+const path = window.location.pathname
 </script>
 
 <template>
-  <div :class="$route.path !== '/iframe' ? 'app' : null">
-    <template v-if="$route.path !== '/iframe'">
+  <!-- 由于路由为懒加载 这里使用 $route.path 会导致页面抖动 -->
+  <div :class="path !== '/iframe' ? 'app' : null">
+    <template v-if="path !== '/iframe'">
       <Nav></Nav>
       <Menu></Menu>
     </template>

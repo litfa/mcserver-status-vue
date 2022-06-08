@@ -11,7 +11,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/iframe',
     name: 'Iframe',
     component: () =>
-    import(/* webpackChunkName: "iframe" */ '../pages/Iframe.vue')
+      import(/* webpackChunkName: "iframe" */ '../pages/Iframe.vue')
+  },
+  {
+    path: '/detail/:id',
+    name: 'Detail',
+    component: () =>
+      import(/* webpackChunkName: "detail" */ '../pages/Detail.vue')
   }
 ]
 

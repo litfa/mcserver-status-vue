@@ -11,8 +11,8 @@ const isCollapse = ref(false)
     <el-radio-button :label="false">expand</el-radio-button>
     <el-radio-button :label="true">collapse</el-radio-button>
   </el-radio-group>-->
-  <el-menu class="menu" :collapse="isCollapse">
-    <el-menu-item index="1-2">
+  <el-menu class="menu" :collapse="isCollapse" router :default-active="$route.path">
+    <el-menu-item index="/">
       <el-icon>
         <Home />
       </el-icon>

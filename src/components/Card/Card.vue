@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import AreaChart from '@/components/Chart/AreaChart.vue'
 import { ElButton, ElTag } from 'element-plus'
+import formatDate from '@/utils/formatDate'
 
 const props = defineProps({
   id: {
@@ -8,30 +9,32 @@ const props = defineProps({
     required: true
   },
   name: String,
-  date: [String, Number]
+  date: String,
+  maxOnline: Number,
+  online: Number,
+  type: String
 })
-const name = '一个je服一个'
 </script>
 
 <template>
   <router-link :to="`/detail/${id}`" class="card">
     <div class="title">
       <h3>{{ name }}</h3>
-      <el-tag>Java</el-tag>
-      <el-tag>1.18</el-tag>
-      <el-tag>互通</el-tag>
+      <el-tag>{{ type == 'je' ? 'Java版' : '基岩版' }}</el-tag>
+      <!-- <el-tag>1.18</el-tag>
+      <el-tag>互通</el-tag>-->
     </div>
     <div class="text">
       <div class="desc">我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介</div>
       <div class="data">
         <span class="data-title">近七天数据</span>
-        <span>平均人数: {{ 120 }}</span>
-        <span>最高人数: {{ 200 }}</span>
+        <span>平均人数: {{ online?.toFixed(2) }}</span>
+        <span>最高人数: {{ maxOnline }}</span>
       </div>
     </div>
     <div class="info">
-      <span>author</span>
-      <span>{{ '2022-1-21' }}</span>
+      <!-- <span>author</span> -->
+      <span>{{ date ? formatDate(date) : null }}</span>
     </div>
   </router-link>
 </template>

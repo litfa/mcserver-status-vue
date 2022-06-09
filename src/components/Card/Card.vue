@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <router-link to="/" class="card">
+  <router-link :to="`/detail/${id}`" class="card">
     <div class="title">
       <h3>{{ name }}</h3>
       <!-- <el-tag>Java</el-tag>
@@ -22,9 +22,9 @@ const props = defineProps({
     </div>
     <div class="data">
       <AreaChart :id="id" :length="'24h'"></AreaChart>
-      <div>
+      <!-- <div>
         <el-button type="primary" plain>详情</el-button>
-      </div>
+      </div>-->
     </div>
     <div class="info">
       <span>{{ date }}</span>
@@ -56,12 +56,12 @@ a.card {
     display: flex;
     justify-content: space-around;
   }
-  .info {
-    span {
-      font-size: 12px;
-      color: var(--text-color);
-      opacity: 0.9;
-    }
-  }
+  // .info {
+  //   span {
+  //     font-size: 12px;
+  //     color: var(--text-color);
+  //     opacity: 0.9;
+  //   }
+  // }
 }
 </style>

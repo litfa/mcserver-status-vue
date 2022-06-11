@@ -34,25 +34,35 @@ const change = (e: string) => {
 </script>
 
 <template>
-  <div class="title">
-    <h3>一个je服</h3>
-    <el-select v-model="value" size="small" @change="change">
-      <el-option label="6小时" value="6h" />
-      <el-option label="24小时" value="24h" />
-      <el-option label="7天" value="7d" />
-      <el-option label="30天" value="30d" />
-    </el-select>
-  </div>
+  <div class="iframe">
+    <div class="title">
+      <h3>一个je服</h3>
+      <el-select v-model="value" size="small" @change="change">
+        <el-option label="6小时" value="6h" />
+        <el-option label="24小时" value="24h" />
+        <el-option label="7天" value="7d" />
+        <el-option label="30天" value="30d" />
+      </el-select>
+    </div>
 
-  <transition name="el-fade-in-linear">
-    <AreaChart v-if="showHour" :id="Number($route.query.id)" :length="value"></AreaChart>
-  </transition>
-  <transition name="el-fade-in-linear">
-    <StackedLineChart v-if="showStacked" :id="Number($route.query.id)" :length="value"></StackedLineChart>
-  </transition>
+    <transition name="el-fade-in-linear">
+      <AreaChart v-if="showHour" :id="Number($route.query.id)" :length="value"></AreaChart>
+    </transition>
+    <transition name="el-fade-in-linear">
+      <StackedLineChart v-if="showStacked" :id="Number($route.query.id)" :length="value"></StackedLineChart>
+    </transition>
+  </div>
 </template>
 
 <style lang="less" scoped>
+.iframe {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.chart-dom {
+  flex: 1;
+}
 .el-select {
   width: 100px;
 }

@@ -3,6 +3,7 @@ import { useRoute } from 'vue-router'
 import getServerDetailApi from '@/apis/getServerDetail'
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import Share from '@/components/Share/Share.vue'
 
 const route = useRoute()
 
@@ -22,6 +23,7 @@ getServerDetail()
 
 <template>
   <h1>{{ detail.name }}</h1>
+  <Share :id="id" />
 </template>
 
 <style lang="less" scoped>

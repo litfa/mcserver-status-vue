@@ -35,7 +35,10 @@ const change = (e: string) => {
 
 <template>
   <div class="iframe">
+    <!-- 占个位吧 先让选择的在右面 -->
+    <!-- 可以在 query 加个选项设置位置 -->
     <div class="title">
+      <h3></h3>
       <el-select v-model="value" size="small" @change="change">
         <el-option label="6小时" value="6h" />
         <el-option label="24小时" value="24h" />

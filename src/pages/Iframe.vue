@@ -73,3 +73,9 @@ const change = (e: string) => {
   box-sizing: border-box;
 }
 </style>
+
+<style>
+body {
+  background-color: unset;
+}
+</style>

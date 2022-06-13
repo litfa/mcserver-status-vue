@@ -34,6 +34,7 @@ const path = window.location.pathname
     grid-area: 2 / 2 / 3 / 3;
     height: 100%;
     overflow: auto;
+    background-color: var(--bg-color);
   }
 }
 </style>

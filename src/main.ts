@@ -7,6 +7,7 @@ import '@/assets/style/main.less'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import '@/assets/theme/dark.less'
 import '@/assets/theme/light.less'
+import 'default-passive-events'
 
 createApp(App)
   .use(router)

@@ -23,8 +23,13 @@ getServerDetail()
 
 <template>
   <h1>{{ detail.name }}</h1>
+  <iframe :src="`/iframe?id=${id}`" frameborder="0"></iframe>
   <Share :id="id" />
 </template>
 
 <style lang="less" scoped>
+iframe {
+  width: 100%;
+  height: 160px;
+}
 </style>

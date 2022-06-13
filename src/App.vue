@@ -23,6 +23,7 @@ const path = window.location.pathname
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 60px 1fr;
+  height: 100vh;
   nav {
     grid-area: 1 / 1 / 2 / 3;
   }
@@ -31,6 +32,8 @@ const path = window.location.pathname
   }
   .content {
     grid-area: 2 / 2 / 3 / 3;
+    height: 100%;
+    overflow: auto;
   }
 }
 </style>

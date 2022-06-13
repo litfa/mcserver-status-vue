@@ -36,7 +36,6 @@ const change = (e: string) => {
 <template>
   <div class="iframe">
     <div class="title">
-      <h3>一个je服</h3>
       <el-select v-model="value" size="small" @change="change">
         <el-option label="6小时" value="6h" />
         <el-option label="24小时" value="24h" />

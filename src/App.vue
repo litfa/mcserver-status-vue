@@ -35,6 +35,8 @@ const path = window.location.pathname
     height: 100%;
     overflow: auto;
     background-color: var(--bg-color);
+    padding: 5px 10px;
+    box-sizing: border-box;
   }
 }
 </style>

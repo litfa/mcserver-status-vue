@@ -24,7 +24,7 @@ getServerDetail()
 
 <template>
   <h1>{{ detail.name }}</h1>
-  <ServerData :host="detail.host" :port="detail.port" :type="detail.type" />
+  <ServerData :host="detail.host" :port="detail.port" :type="detail.type" :id="id" />
   <iframe :src="`/iframe?id=${id}`" frameborder="0"></iframe>
   <Share :id="id" />
 </template>

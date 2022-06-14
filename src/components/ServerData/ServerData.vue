@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { ElDescriptions, ElDescriptionsItem, ElButton, ElIcon, ElMessage } from 'element-plus'
-import { Server, Dashboard } from '@icon-park/vue-next'
+import { Server, Dashboard, Copy } from '@icon-park/vue-next'
 import { getNow as getNowApi } from '@/apis/getStatus'
 import dayjs from 'dayjs'
+import { useClipboard } from '@vueuse/core'
+
+const { copy } = useClipboard()
 
 const props = defineProps({
   host: String,
@@ -50,16 +53,45 @@ const resetStatus = () => {
   date = Date.now()
   return getStatus(true)
 }
+
+const ip = computed(() => {
+  let port
+  if (props.type == 'je' && props.port == 25565) {
+    port = ''
+  } else if (props.type == 'be' && props.port == 19132) {
+    port = ''
+  } else {
+    port = ':' + props.port
+  }
+  return props.host?.toLowerCase() + port
+})
+
+const copytext = ref('复制')
+const copyIp = async () => {
+  await copy(ip.value)
+  copytext.value = '已复制'
+  // 5秒后改回来
+  setTimeout(() => {
+    copytext.value = '复制'
+  }, 1000 * 5)
+}
 </script>
 
 <template>
   <div class="data">
     <div class="text">
       <Server />
-      <span>{{ host?.toLowerCase() }}{{ port != 19132 ? ':' + port : null }}</span>
+      <span>{{ ip || '-' }}</span>
     </div>
-
-    <el-button type="primary" size="small" v-if="type == 'be'">添加服务器</el-button>
+    <div>
+      <el-button type="primary" size="small" @click="copyIp" v-if="type == 'be'">
+        <el-icon>
+          <Copy />
+        </el-icon>
+        <span>{{ copytext }}</span>
+      </el-button>
+      <el-button type="primary" size="small" v-if="type == 'be'">添加服务器</el-button>
+    </div>
   </div>
 
   <el-descriptions :column="2">
@@ -96,6 +128,7 @@ const resetStatus = () => {
   justify-content: space-between;
   align-items: center;
   margin: 20px auto;
+  flex-wrap: wrap;
   .text {
     display: flex;
     align-items: center;

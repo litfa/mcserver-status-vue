@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { ElInput, ElButton, ElMessage, ElSwitch, ElInputNumber, ElCollapse, ElCollapseItem } from 'element-plus'
+import type { CollapseModelValue } from 'element-plus'
 import { Copy } from '@icon-park/vue-next'
 import { useClipboard } from '@vueuse/core'
 
@@ -24,6 +25,17 @@ const copyLink = async () => {
   await copy(code.value)
   ElMessage.success('复制成功')
 }
+
+const showIframe = ref(false)
+
+const onChange = (value: CollapseModelValue): any => {
+  const isOpen = value == '1'
+  // 第一次打开时渲染
+  if (isOpen) {
+    showIframe.value = true
+  }
+}
+
 </script>
 
 <template>
@@ -33,7 +45,7 @@ const copyLink = async () => {
         <el-button :icon="Copy" @click="copyLink" />
       </template>
     </el-input>
-    <el-collapse>
+    <el-collapse @change="onChange" accordion>
       <el-collapse-item title="预览" name="1">
         <div class="options">
           <span class="item">
@@ -45,7 +57,7 @@ const copyLink = async () => {
             <el-input-number v-model="width" :step="20" size="small" :min="180" :max="1000" />
           </span>
         </div>
-        <iframe :src="link" :width="width" height="200px" frameborder="0"></iframe>
+        <iframe v-if="showIframe" :src="link" :width="width" height="200px" frameborder="0"></iframe>
       </el-collapse-item>
     </el-collapse>
   </div>

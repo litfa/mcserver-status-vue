@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { ElDescriptions, ElDescriptionsItem, ElButton, ElIcon, ElMessage } from 'element-plus'
+import { ElDescriptions, ElDescriptionsItem, ElButton, ElIcon, ElMessage, ElTooltip } from 'element-plus'
 import { Server, Dashboard, Copy } from '@icon-park/vue-next'
 import { getNow as getNowApi } from '@/apis/getStatus'
 import dayjs from 'dayjs'
 import { useClipboard } from '@vueuse/core'
+import DescriptionsItem from './DescriptionsItem.vue'
 
 const { copy } = useClipboard()
 
@@ -94,32 +95,40 @@ const copyIp = async () => {
     </div>
   </div>
 
-  <el-descriptions :column="2">
-    <template #title>
-      <el-icon>
+  <div class="descriptions">
+    <div class="header">
+      <h3>
         <dashboard />
-      </el-icon>
-      <span>当前状态</span>
-    </template>
-    <el-descriptions-item
-      label="人数"
-    >{{ `${status.online?.toString() || '-'}/${status.max?.toString() || '-'}` || '-' }}</el-descriptions-item>
-    <el-descriptions-item label="模式" v-if="status.gameMode">{{ status.gameMode || '-' }}</el-descriptions-item>
-    <el-descriptions-item
-      label="延迟"
-      v-if="status.roundTripLatency"
-    >{{ status.roundTripLatency || '-' }}</el-descriptions-item>
-    <el-descriptions-item label="版本">{{ status.version || '-' }}</el-descriptions-item>
-    <el-descriptions-item label="协议版本">{{ status.agreement || '-' }}</el-descriptions-item>
-    <el-descriptions-item label="motd">
-      <span v-html="status.motd || status.motd || '-'"></span>
-    </el-descriptions-item>
-    <el-descriptions-item label="刷新时间">{{ dayjs(status.date || '-').format('HH:mm:ss') }}</el-descriptions-item>
-
-    <template #extra>
-      <el-button type="primary" size="small" @click="resetStatus">刷新</el-button>
-    </template>
-  </el-descriptions>
+        <span>当前状态</span>
+      </h3>
+      <div class="extra">
+        <el-button type="primary" size="small" @click="resetStatus">刷新</el-button>
+      </div>
+    </div>
+    <div class="body">
+      <descriptions-item
+        label="人数"
+      >{{ `${status.online?.toString() || '-'}/${status.max?.toString() || '-'}` || '-' }}</descriptions-item>
+      <descriptions-item label="模式" v-if="status.gameMode">{{ status.gameMode || '-' }}</descriptions-item>
+      <descriptions-item
+        label="延迟"
+        v-if="status.roundTripLatency"
+      >{{ status.roundTripLatency || '-' }}</descriptions-item>
+      <descriptions-item label="版本">
+        <el-tooltip :content="status.version">{{ status.version || '-' }}</el-tooltip>
+      </descriptions-item>
+      <descriptions-item label="协议版本">{{ status.agreement || '-' }}</descriptions-item>
+      <descriptions-item label="motd">
+        <el-tooltip :content="status.motdHtml || status.motd" raw-content>
+          <span v-html="status.motdHtml || status.motd || '-'"></span>
+        </el-tooltip>
+      </descriptions-item>
+      <descriptions-item
+        label="刷新时间"
+        min-width="160"
+      >{{ dayjs(status.date || '-').format('HH:mm:ss') }}</descriptions-item>
+    </div>
+  </div>
 </template>
 
 <style lang="less" scoped>
@@ -139,15 +148,34 @@ const copyIp = async () => {
     }
   }
 }
-:deep(.el-descriptions__header) {
-  margin-bottom: 5px;
-  margin-top: 10px;
-}
-:deep(.el-descriptions__title) {
+.descriptions {
   display: flex;
-  align-items: center;
-  span {
-    margin-right: 8px;
+  flex-direction: column;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  .body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .item {
+      width: 50%;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .body {
+      flex-direction: column;
+      .item {
+        width: 100%;
+        :deep(.content) {
+          overflow: unset;
+          text-overflow: unset;
+          white-space: unset;
+        }
+      }
+    }
   }
 }
 </style>

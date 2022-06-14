@@ -4,6 +4,7 @@ import getServerDetailApi from '@/apis/getServerDetail'
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import Share from '@/components/Share/Share.vue'
+import ServerData from '@/components/ServerData/ServerData.vue'
 
 const route = useRoute()
 
@@ -23,6 +24,7 @@ getServerDetail()
 
 <template>
   <h1>{{ detail.name }}</h1>
+  <ServerData :host="detail.host" :port="detail.port" :type="detail.type" />
   <iframe :src="`/iframe?id=${id}`" frameborder="0"></iframe>
   <Share :id="id" />
 </template>

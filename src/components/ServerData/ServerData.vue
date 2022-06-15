@@ -90,7 +90,7 @@ const filterText = (htmlText: string) => {
       <span>{{ ip || '-' }}</span>
     </div>
     <div>
-      <el-button type="primary" size="small" @click="copyIp" v-if="type == 'be'">
+      <el-button type="primary" size="small" @click="copyIp">
         <el-icon>
           <Copy />
         </el-icon>

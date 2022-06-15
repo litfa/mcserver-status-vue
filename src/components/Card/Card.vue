@@ -12,7 +12,8 @@ const props = defineProps({
   date: String,
   maxOnline: Number,
   online: Number,
-  type: String
+  type: String,
+  desc: String
 })
 </script>
 
@@ -25,7 +26,7 @@ const props = defineProps({
       <el-tag>互通</el-tag>-->
     </div>
     <div class="text">
-      <div class="desc">我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介</div>
+      <div class="desc">{{ desc }}</div>
       <div class="data">
         <span class="data-title">近七天数据</span>
         <span>平均人数: {{ online?.toFixed(2) }}</span>
@@ -67,6 +68,7 @@ a.card {
       font-size: 15px;
       color: var(--text-color);
       max-width: 80%;
+      opacity: 0.95;
     }
     .data {
       flex-shrink: 0;

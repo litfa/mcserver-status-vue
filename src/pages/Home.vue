@@ -51,7 +51,8 @@ const bind = (item: dataRes) => {
     date: item.date,
     maxOnline: item.max_online,
     online: item.online,
-    type: item.type
+    type: item.type,
+    desc: item.desc
   }
 }
 </script>

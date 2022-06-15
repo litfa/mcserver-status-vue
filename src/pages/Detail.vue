@@ -5,6 +5,7 @@ import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import Share from '@/components/Share/Share.vue'
 import ServerData from '@/components/ServerData/ServerData.vue'
+import { isDark } from '@/utils/theme'
 
 const route = useRoute()
 
@@ -25,7 +26,7 @@ getServerDetail()
 <template>
   <h1>{{ detail.name }}</h1>
   <ServerData :host="detail.host" :port="detail.port" :type="detail.type" :id="id" />
-  <iframe :src="`/iframe?id=${id}`" frameborder="0"></iframe>
+  <iframe :src="`/iframe?id=${id}&dark=${isDark}`" frameborder="0"></iframe>
   <Share :id="id" />
 </template>
 

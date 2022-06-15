@@ -29,45 +29,29 @@ watch(() => activeName.value, () => {
 }, {
   immediate: true
 })
+
+const bind = (item: any) => {
+  return {
+    id: item.id,
+    name: item.name,
+    date: item.date,
+    maxOnline: item.max_online,
+    online: item.online,
+    type: item.type
+  }
+}
 </script>
 
 <template>
   <el-tabs v-model="activeName" class="tabs">
     <el-tab-pane label="全部" name="all" lazy>
-      <Card
-        v-for="item in data.all"
-        :key="item.id"
-        :id="item.id"
-        :name="item.name"
-        :date="item.date"
-        :maxOnline="item.max_online"
-        :online="item.online"
-        :type="item.type"
-      ></Card>
+      <Card v-for="item in data.all" :key="item.id" v-bind="bind(item)"></Card>
     </el-tab-pane>
     <el-tab-pane label="Java版" name="je" lazy>
-      <Card
-        v-for="item in data.je"
-        :key="item.id"
-        :id="item.id"
-        :name="item.name"
-        :date="item.date"
-        :maxOnline="item.max_online"
-        :online="item.online"
-        :type="item.type"
-      ></Card>
+      <Card v-for="item in data.je" :key="item.id" v-bind="bind(item)"></Card>
     </el-tab-pane>
     <el-tab-pane label="基岩版" name="be" lazy>
-      <Card
-        v-for="item in data.be"
-        :key="item.id"
-        :id="item.id"
-        :name="item.name"
-        :date="item.date"
-        :maxOnline="item.max_online"
-        :online="item.online"
-        :type="item.type"
-      ></Card>
+      <Card v-for="item in data.be" :key="item.id" v-bind="bind(item)"></Card>
     </el-tab-pane>
   </el-tabs>
 </template>

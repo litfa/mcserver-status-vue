@@ -76,6 +76,11 @@ const copyIp = async () => {
     copytext.value = '复制'
   }, 1000 * 5)
 }
+
+const filterText = (htmlText: string) => {
+  // 基岩版 motd 文本默认白色 取消白色
+  return htmlText.replaceAll('color: #FFFFFF', '')
+}
 </script>
 
 <template>
@@ -120,7 +125,8 @@ const copyIp = async () => {
       <descriptions-item label="协议版本">{{ status.agreement || '-' }}</descriptions-item>
       <descriptions-item label="motd">
         <el-tooltip :content="status.motdHtml || status.motd" raw-content>
-          <span v-html="status.motdHtml || status.motd || '-'"></span>
+          <span v-html="filterText(status.motdHtml || status.motd || '-')"></span>
+          <!-- <span v-text="status.motd || '-'"></span> -->
         </el-tooltip>
       </descriptions-item>
       <descriptions-item

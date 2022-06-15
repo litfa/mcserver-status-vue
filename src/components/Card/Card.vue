@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import AreaChart from '@/components/Chart/AreaChart.vue'
 import { ElButton, ElTag } from 'element-plus'
+import TagType from '@/components/Tag/TagType.vue'
 import formatDate from '@/utils/formatDate'
 
 const props = defineProps({
@@ -21,7 +22,7 @@ const props = defineProps({
   <router-link :to="`/detail/${id}`" class="card">
     <div class="title">
       <h3>{{ name }}</h3>
-      <el-tag>{{ type == 'je' ? 'Java版' : '基岩版' }}</el-tag>
+      <tag-type :type="type" />
       <!-- <el-tag>1.18</el-tag>
       <el-tag>互通</el-tag>-->
     </div>

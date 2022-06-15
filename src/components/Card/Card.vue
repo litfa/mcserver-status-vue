@@ -14,7 +14,8 @@ const props = defineProps({
   maxOnline: Number,
   online: Number,
   type: String,
-  desc: String
+  desc: String,
+  version: [String]
 })
 </script>
 
@@ -23,8 +24,8 @@ const props = defineProps({
     <div class="title">
       <h3>{{ name }}</h3>
       <tag-type :type="type" />
-      <!-- <el-tag>1.18</el-tag>
-      <el-tag>互通</el-tag>-->
+      <el-tag v-if="version">{{ version }}</el-tag>
+      <!-- <el-tag>互通</el-tag> -->
     </div>
     <div class="text">
       <div class="desc">{{ desc }}</div>

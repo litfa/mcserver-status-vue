@@ -18,6 +18,7 @@ interface dataRes {
   desc: string
   max_online: number
   online: number
+  version?: string | null
 }
 
 const data: {
@@ -52,7 +53,8 @@ const bind = (item: dataRes) => {
     maxOnline: item.max_online,
     online: item.online,
     type: item.type,
-    desc: item.desc
+    desc: item.desc,
+    version: item.version || undefined
   }
 }
 </script>

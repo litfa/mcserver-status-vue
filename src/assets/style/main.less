@@ -30,3 +30,21 @@ ul {
 body {
   background-color: var(--body-bg-color);
 }
+
+::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+  padding: 0 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(173, 173, 173, 0.667) !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(85, 85, 85, 0.667) !important;
+}

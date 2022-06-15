@@ -189,7 +189,7 @@ export default {
       'color': '#eeeeee'
     },
     'splitLine': {
-      'show': true,
+      'show': false,
       'lineStyle': {
         'color': [
           '#aaaaaa'
@@ -226,7 +226,7 @@ export default {
       'show': true,
       'lineStyle': {
         'color': [
-          '#aaaaaa'
+          '#aaa3'
         ]
       }
     },

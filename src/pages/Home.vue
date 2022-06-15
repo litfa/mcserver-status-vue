@@ -6,15 +6,29 @@ import getServersApi from '@/apis/getServers'
 
 const activeName = ref<'all' | 'je' | 'be'>('all')
 
+interface dataRes {
+  id: number
+  name: string
+  host: string
+  port: number
+  type: string
+  user_id: number
+  status: number
+  date: string
+  desc: string
+  max_online: number
+  online: number
+}
+
 const data: {
-  all?: any[]
-  be?: any[]
-  je?: any[]
+  all?: dataRes[]
+  be?: dataRes[]
+  je?: dataRes[]
 } = reactive({})
 
 const getServers = async () => {
   const { data: res } = await getServersApi(activeName.value)
-  data[activeName.value] = res.data as any[]
+  data[activeName.value] = res.data as dataRes[]
 }
 
 watch(() => activeName.value, () => {
@@ -30,7 +44,7 @@ watch(() => activeName.value, () => {
   immediate: true
 })
 
-const bind = (item: any) => {
+const bind = (item: dataRes) => {
   return {
     id: item.id,
     name: item.name,

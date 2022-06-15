@@ -43,7 +43,7 @@ const change = (e: string) => {
         <el-option label="6小时" value="6h" />
         <el-option label="24小时" value="24h" />
         <el-option label="7天" value="7d" />
-        <el-option label="30天" value="30d" />
+        <!-- <el-option label="30天" value="30d" /> -->
       </el-select>
     </div>
 

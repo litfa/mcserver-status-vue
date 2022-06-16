@@ -16,6 +16,7 @@ const getServerDetail = async () => {
   const { data: res } = await getServerDetailApi(Number(id))
   if (res.code == 200) {
     detail.value = res.data
+    document.title = `${res.data.name ? res.data.name + '-' : ''}  mc motd`
   } else {
     ElMessage.error('数据获取失败')
   }

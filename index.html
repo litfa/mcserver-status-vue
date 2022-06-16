@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite App</title>
+  <title>mc motd</title>
+  <meta name="description" content="mc-motd 记录mc服务器实时状态信息">
+  <meta name="keywords" content="mc motd">
+  <meta name="renderer" content="webkit">
+  <script>
+    if (
+      window.__SERVER_CONFIG__ && window.__SERVER_CONFIG__.isModern === false || navigator.userAgent.toLowerCase().indexOf('trident') > -1 ? true : false
+    ) {
+      alert('当前浏览器版本较低，为保证您的使用体验，建议使用最新版本的浏览器访问。')
+      window.location.href('https://google.cn/chrome')
+    }
+  </script>
   <script>
     var _hmt = _hmt || [];
     (function () {

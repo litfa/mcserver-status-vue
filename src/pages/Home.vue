@@ -5,6 +5,8 @@ import Card from '@/components/Card/Card.vue'
 import getServersApi from '@/apis/getServers'
 
 const activeName = ref<'all' | 'je' | 'be'>('all')
+// 改回默认
+document.title = 'mc motd'
 
 interface dataRes {
   id: number

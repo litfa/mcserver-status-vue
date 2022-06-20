@@ -165,7 +165,7 @@ const getData = async () => {
         data.offlineData.push([{
           xAxis: dayjs(res.data[i].date).format('HH:mm')
         }, {
-          xAxis: dayjs(res.data[Number(i) + 1].date).format('HH:mm')
+          xAxis: res.data[Number(i) + 1] ? dayjs(res.data[Number(i) + 1].date).format('HH:mm') : undefined
         }
         ])
       }

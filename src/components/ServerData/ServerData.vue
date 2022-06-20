@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { ElDescriptions, ElDescriptionsItem, ElButton, ElIcon, ElMessage, ElTooltip } from 'element-plus'
+import { ElButton, ElIcon, ElMessage, ElTooltip, ElPopover } from 'element-plus'
 import { Server, Dashboard, Copy } from '@icon-park/vue-next'
 import { getNow as getNowApi } from '@/apis/getStatus'
 import dayjs from 'dayjs'
@@ -29,7 +29,12 @@ const status = ref<{
   // only be
   gameMode?: string
   // only je
-  roundTripLatency?: number
+  roundTripLatency?: number,
+  // only je
+  sample?: {
+    id: string,
+    name: string
+  }[]
 }>({})
 
 const getStatus = async (successMsg = false) => {
@@ -111,9 +116,19 @@ const filterText = (htmlText: string) => {
       </div>
     </div>
     <div class="body">
-      <descriptions-item
-        label="人数"
-      >{{ `${status.online?.toString() || '-'}/${status.max?.toString() || '-'}` || '-' }}</descriptions-item>
+      <descriptions-item label="人数">
+        <el-popover placement="bottom" :width="200" trigger="hover" :disabled="props.type == 'be'">
+          <template #reference>
+            {{
+              `${status.online?.toString() || '-'}/${status.max?.toString() || '-'}` || '-'
+            }}
+          </template>
+          <div
+            v-for="(item, index) in status.sample"
+            :key="index"
+          >{{ item.name.replace(/§[0-9a-z]/g, '') }}</div>
+        </el-popover>
+      </descriptions-item>
       <descriptions-item label="模式" v-if="status.gameMode">{{ status.gameMode || '-' }}</descriptions-item>
       <descriptions-item
         label="延迟"

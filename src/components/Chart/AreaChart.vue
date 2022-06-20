@@ -4,7 +4,9 @@ import {
   GridComponent,
   GridComponentOption,
   TooltipComponent,
-  TooltipComponentOption
+  TooltipComponentOption,
+  MarkAreaComponent,
+  MarkAreaComponentOption
 } from 'echarts/components'
 import { LineChart, LineSeriesOption } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
@@ -34,7 +36,8 @@ echarts.use([
   LineChart,
   CanvasRenderer,
   UniversalTransition,
-  TooltipComponent
+  TooltipComponent,
+  MarkAreaComponent
 ])
 
 echarts.registerTheme('dark', echartsDark)
@@ -44,16 +47,25 @@ type EChartsOption = echarts.ComposeOption<
   | GridComponentOption
   | LineSeriesOption
   | TooltipComponentOption
+  | MarkAreaComponentOption
 >
 
 let chartDom = ref<HTMLElement | null | any>(null)!
 let myChart: echarts.ECharts
 const data: {
   online: number[]
-  date: string[]
+  date: string[],
+  offlineData: [
+    {
+      xAxis: string
+    },
+    {
+      xAxis: string | undefined
+    }][]
 } = {
   online: [],
-  date: []
+  date: [],
+  offlineData: []
 }
 
 let option: EChartsOption = {
@@ -73,12 +85,23 @@ let option: EChartsOption = {
       areaStyle: {},
       // 解决鼠标移入是报错
       zlevel: 9,
-      z: 9
+      z: 9,
+      // 红色异常
+      markArea: {
+        itemStyle: {
+          color: 'rgba(255, 173, 177, 0.4)'
+        },
+        data: data.offlineData
+      }
     }
   ],
   tooltip: {
     trigger: 'axis',
-    confine: true
+    confine: true,
+    valueFormatter: (value) => {
+      return value.toString()
+
+    }
   },
   grid: {
     top: '10%',
@@ -128,6 +151,27 @@ const getData = async () => {
     data.online.push(element.online || 0)
     data.date.push(dayjs(element.date).format('HH:mm'))
   })
+  // ./.test.ts
+  // 异常数据
+  for (const i in res.data) {
+    // 异常数据
+    if (!res.data[i].status) {
+      if (data.offlineData[data.offlineData.length - 1] && data.offlineData[data.offlineData.length - 1][1].xAxis == dayjs(res.data[i].date).format('HH:mm')) {
+        // 如果上一个异常数据的时间和当前异常数据的时间一样，则修改到下一个时间 不在添加
+        // 若是最后一项 添加 undefined
+        data.offlineData[data.offlineData.length - 1]![1].xAxis = res.data[Number(i) + 1] ?
+          dayjs(res.data[Number(i) + 1].date).format('HH:mm') : undefined
+      } else {
+        data.offlineData.push([{
+          xAxis: dayjs(res.data[i].date).format('HH:mm')
+        }, {
+          xAxis: dayjs(res.data[Number(i) + 1].date).format('HH:mm')
+        }
+        ])
+      }
+    }
+  }
+
   myChart.setOption(option)
 }
 

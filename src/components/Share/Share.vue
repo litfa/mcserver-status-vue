@@ -14,7 +14,7 @@ const dark = ref(false)
 const width = ref(500)
 // iframe 里的连接
 const link = computed(() => {
-  return `http://localhost:8080/iframe?id=${props.id}&dark=${dark.value}`
+  return `${import.meta.env.VITE_APP_iframe_baseurl || 'http://localhost:8080'}/iframe?id=${props.id}&dark=${dark.value}`
 })
 // 用来复制的代码
 const code = computed(() =>

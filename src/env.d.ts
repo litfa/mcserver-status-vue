@@ -8,7 +8,8 @@ declare module '*.vue' {
 }
 
 interface ImportMetaEnv {
-  readonly VITE_APP_ApiBaseutl: string
+  readonly VITE_APP_ApiBaseurl: string
+  readonly VITE_APP_iframe_baseurl: string
   // 更多环境变量...
 }
 

@@ -102,7 +102,10 @@ const filterText = (htmlText: string) => {
         </el-icon>
         <span>{{ copytext }}</span>
       </el-button>
-      <a :href="`minecraft:?addExternalServer=${name || '一个服务器'}|${host}:${port || 19132}`">
+      <a
+        :href="`minecraft:?addExternalServer=${name || '一个服务器'}|${host}:${port || 19132}`"
+        @click="ElMessage.info('已尝试唤起Minecraft，若未唤起 请检查是否安装Minecraft或更换浏览器重试')"
+      >
         <el-button type="primary" size="small" v-if="type == 'be'">添加服务器</el-button>
       </a>
     </div>

@@ -13,7 +13,8 @@ const props = defineProps({
   host: String,
   port: [String, Number],
   type: [String],
-  id: String
+  id: String,
+  name: String
 })
 
 const status = ref<{
@@ -101,7 +102,9 @@ const filterText = (htmlText: string) => {
         </el-icon>
         <span>{{ copytext }}</span>
       </el-button>
-      <el-button type="primary" size="small" v-if="type == 'be'">添加服务器</el-button>
+      <a :href="`minecraft:?addExternalServer=${name || '一个服务器'}|${host}:${port || 19132}`">
+        <el-button type="primary" size="small" v-if="type == 'be'">添加服务器</el-button>
+      </a>
     </div>
   </div>
 
@@ -120,7 +123,7 @@ const filterText = (htmlText: string) => {
         <el-popover placement="bottom" :width="200" trigger="hover" :disabled="props.type == 'be'">
           <template #reference>
             {{
-              `${status.online?.toString() || '-'}/${status.max?.toString() || '-'}` || '-'
+              `${status.online?.toString() || '-'} /${status.max?.toString() || '-'}` || '-'
             }}
           </template>
           <div
@@ -159,6 +162,10 @@ const filterText = (htmlText: string) => {
   align-items: center;
   margin: 20px auto;
   flex-wrap: wrap;
+  a {
+    margin-left: 5px;
+    text-decoration: none;
+  }
   .text {
     display: flex;
     align-items: center;

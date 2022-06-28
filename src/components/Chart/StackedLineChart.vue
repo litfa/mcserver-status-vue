@@ -111,7 +111,7 @@ let option: EChartsOption = {
       tooltip: {
         valueFormatter: (e) => {
           e = Number(e)
-          return `${(e) * 100}%`
+          return `${((e) * 100).toFixed(2)}%`
         }
       }
     },

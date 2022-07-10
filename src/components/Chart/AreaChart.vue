@@ -139,6 +139,7 @@ const getData = async () => {
         online: number
         status: number | boolean
       }[]
+      offset: number
     }
   } = await getDataApi(props.id, props.length as '6h' | '24h')
   if (res?.code != 200) {
@@ -148,7 +149,7 @@ const getData = async () => {
   data.online.length = 0
   data.date.length = 0
   res.data.forEach((element) => {
-    data.online.push(element.online || 0)
+    data.online.push(element.online + (res.offset || 0))
     data.date.push(dayjs(element.date).format('HH:mm'))
   })
   // ./.test.ts

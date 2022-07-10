@@ -36,6 +36,7 @@ const status = ref<{
     id: string,
     name: string
   }[]
+  offset?: number
 }>({})
 
 const getStatus = async (successMsg = false) => {
@@ -50,6 +51,13 @@ const getStatus = async (successMsg = false) => {
   }
 }
 getStatus()
+
+const online = computed(() => {
+  const offset = status.value.offset || 0
+  const now = ((status.value.online || 0) + offset)?.toString() || '-'
+  const max = ((status.value.max || 0) + offset)?.toString() || '-'
+  return `${now}/${max}`
+})
 
 let date = Date.now()
 const resetStatus = () => {
@@ -125,9 +133,7 @@ const filterText = (htmlText: string) => {
       <descriptions-item label="人数">
         <el-popover placement="bottom" :width="200" trigger="hover" :disabled="props.type == 'be'">
           <template #reference>
-            {{
-              `${status.online?.toString() || '-'} /${status.max?.toString() || '-'}` || '-'
-            }}
+            {{ online }}
           </template>
           <div
             v-for="(item, index) in status.sample"

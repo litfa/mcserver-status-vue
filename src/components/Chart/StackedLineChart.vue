@@ -155,8 +155,12 @@ const getData = async () => {
   data.status.length = 0
   res.data.forEach(e => {
     data.day.push(e.day)
-    data.maxOnline.push(e.max_online + (res.offset || 0))
-    data.online.push(e.online + (res.offset || 0))
+    data.maxOnline.push(
+      e.max_online !== null ? e.max_online + (res.offset || 0):0
+    )
+    data.online.push(
+      e.online !== null ? e.online + (res.offset || 0) : 0
+    )
     data.status.push(e.status)
   })
   myChart.setOption(option)

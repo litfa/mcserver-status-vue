@@ -149,7 +149,9 @@ const getData = async () => {
   data.online.length = 0
   data.date.length = 0
   res.data.forEach((element) => {
-    data.online.push(element.online + (res.offset || 0))
+    data.online.push(
+      element.online !== null ? element.online + (res.offset || 0) : 0
+    )
     data.date.push(dayjs(element.date).format('HH:mm'))
   })
   // ./.test.ts
